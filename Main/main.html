@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main - The Place of the Librarian</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <!-- for all -->
+    <div class="sidebar">
+        <img style="width: 50%;" src="/images/bookshelf.png" alt="books.png">
+        <button onclick="changeContent(1)">КНИГИ</button>
+        <button onclick="changeContent(2)">ВІДВІДУВАЧІ</button>
+        <button onclick="changeContent(3)">КАРТКИ</button>
+        <button onclick="changeContent(4)">СТАТИСТИКА</button>
+    </div>
+    <div id="content" class="content">
+        <!-- cases -->
+    </div>
+    <!-- case 1 (Книги) -->  
+    <div class="book" id="newBook">
+        <div class="book-content">
+            <span class="close" onclick="closeNewBook()">&times;</span>    
+            <h2>Додати нову книгу</h2>     
+            <input id="bookNameInput" style="margin: 10px;" type="text" placeholder="Name">      
+            <input id="bookAuthorInput" style="margin: 10px;" type="text" placeholder="Author">       
+            <input id="bookYearInput" style="margin: 10px;" type="text" placeholder="Year">       
+            <input id="bookPublisherInput" style="margin: 10px;" type="text" placeholder="Publisher">       
+            <input id="bookPagesInput" style="margin: 10px;" type="text" placeholder="Pages">
+            <input id="bookCountInput" style="margin: 10px;" type="text" placeholder="Count">
+            <button style="margin: 10px;" id="saveBookBtn" onclick="addNewBook()">Зберегти</button>
+        </div>
+    </div> 
+    <div class="book" id="editBook">
+        <div class="book-content">
+            <span class="close" onclick="closeEditBook()">&times;</span>    
+            <h2>Редагувати книгу</h2>     
+            <input id="bookNameInputEdit" style="margin: 10px;" type="text" placeholder="Name">      
+            <input id="bookAuthorInputEdit" style="margin: 10px;" type="text" placeholder="Author">       
+            <input id="bookYearInputEdit" style="margin: 10px;" type="text" placeholder="Year">       
+            <input id="bookPublisherInputEdit" style="margin: 10px;" type="text" placeholder="Publisher">       
+            <input id="bookPagesInputEdit" style="margin: 10px;" type="text" placeholder="Pages">
+            <input id="bookCountInputEdit" style="margin: 10px;" type="text" placeholder="Count">
+            <button style="margin: 10px;" id="saveBookBtnEdit" onclick="saveEditedBook()">Змінити</button>
+            <button style="margin: 10px; right: 330px;" id="deleteBookBtnEdit" onclick="deleteBookFromEdit(this)">Видалити</button>
+        </div>
+    </div>
+    <!-- case 2 (Користувачі) -->
+    <div class="user" id="newUser">
+        <div class="user-content">
+            <span class="close" onclick="closeNewUser()">&times;</span>
+            <h2>Додати нового користувача</h2>
+            <input id="userNameInput" type="text" placeholder="Full Name">
+            <input id="userPhoneInput" type="text" placeholder="Phone">
+            <button onclick="addNewUser()">Зберегти</button>
+        </div>
+    </div>
+    <div class="user" id="editUser">
+        <div class="user-content">
+            <span class="close" onclick="closeEditUser()">&times;</span>
+            <h2>Редагувати користувача</h2>
+            <input id="userNameInputEdit" type="text" placeholder="Full Name">
+            <input id="userPhoneInputEdit" type="text" placeholder="Phone">
+            <button style="right: 370px;" id="saveUserBtnEdit" onclick="saveEditedUser()">Змінити</button>
+            <button id="deleteUserBtnEdit" onclick="deleteUserFromEdit(this)">Видалити</button>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
