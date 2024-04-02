@@ -10,10 +10,10 @@
     <!-- for all -->
     <div class="sidebar">
         <img style="width: 50%;" src="/images/bookshelf.png" alt="books.png">
-        <button onclick="changeContent(1)">КНИГИ</button>
-        <button onclick="changeContent(2)">ВІДВІДУВАЧІ</button>
-        <button onclick="changeContent(3)">КАРТКИ</button>
-        <button onclick="changeContent(4)">СТАТИСТИКА</button>
+        <button onclick="changeContent(1)">BOOKS</button>
+        <button onclick="changeContent(2)">VISITORS</button>
+        <button onclick="changeContent(3)">CARDS</button>
+        <button onclick="changeContent(4)">STATISTICS</button>
     </div>
     <div id="content" class="content">
         <!-- cases -->
@@ -22,48 +22,72 @@
     <div class="book" id="newBook">
         <div class="book-content">
             <span class="close" onclick="closeNewBook()">&times;</span>    
-            <h2>Додати нову книгу</h2>     
+            <h2>Add new Book</h2>     
             <input id="bookNameInput" style="margin: 10px;" type="text" placeholder="Name">      
             <input id="bookAuthorInput" style="margin: 10px;" type="text" placeholder="Author">       
             <input id="bookYearInput" style="margin: 10px;" type="text" placeholder="Year">       
             <input id="bookPublisherInput" style="margin: 10px;" type="text" placeholder="Publisher">       
             <input id="bookPagesInput" style="margin: 10px;" type="text" placeholder="Pages">
             <input id="bookCountInput" style="margin: 10px;" type="text" placeholder="Count">
-            <button style="margin: 10px;" id="saveBookBtn" onclick="addNewBook()">Зберегти</button>
+            <button style="margin: 10px; width: 70px;" id="saveBookBtn" onclick="addNewBook()">Save</button>
         </div>
     </div> 
     <div class="book" id="editBook">
         <div class="book-content">
-            <span class="close" onclick="closeEditBook()">&times;</span>    
-            <h2>Редагувати книгу</h2>     
-            <input id="bookNameInputEdit" style="margin: 10px;" type="text" placeholder="Name">      
-            <input id="bookAuthorInputEdit" style="margin: 10px;" type="text" placeholder="Author">       
-            <input id="bookYearInputEdit" style="margin: 10px;" type="text" placeholder="Year">       
-            <input id="bookPublisherInputEdit" style="margin: 10px;" type="text" placeholder="Publisher">       
+            <span class="close" onclick="closeEditBook()">&times;</span>
+            <h2>Edit Book</h2>
+            <input id="bookNameInputEdit" style="margin: 10px;" type="text" placeholder="Name">
+            <input id="bookAuthorInputEdit" style="margin: 10px;" type="text" placeholder="Author">
+            <input id="bookYearInputEdit" style="margin: 10px;" type="text" placeholder="Year">
+            <input id="bookPublisherInputEdit" style="margin: 10px;" type="text" placeholder="Publisher">
             <input id="bookPagesInputEdit" style="margin: 10px;" type="text" placeholder="Pages">
             <input id="bookCountInputEdit" style="margin: 10px;" type="text" placeholder="Count">
-            <button style="margin: 10px;" id="saveBookBtnEdit" onclick="saveEditedBook()">Змінити</button>
-            <button style="margin: 10px; right: 330px;" id="deleteBookBtnEdit" onclick="deleteBookFromEdit(this)">Видалити</button>
+            <button style="margin: 10px; width: 70px;" id="saveBookBtnEdit" onclick="saveEditedBook()">Save</button>
+            <button style="margin: 10px; width: 70px; right: 330px;" id="deleteBookBtnEdit" onclick="deleteBookFromEdit(this)">Delete</button>
         </div>
     </div>
     <!-- case 2 (Користувачі) -->
     <div class="user" id="newUser">
         <div class="user-content">
             <span class="close" onclick="closeNewUser()">&times;</span>
-            <h2>Додати нового користувача</h2>
+            <h2>Add new Visitor</h2>
             <input id="userNameInput" type="text" placeholder="Full Name">
             <input id="userPhoneInput" type="text" placeholder="Phone">
-            <button onclick="addNewUser()">Зберегти</button>
+            <button style="width: 70px;" onclick="addNewUser()">Save</button>
         </div>
     </div>
     <div class="user" id="editUser">
         <div class="user-content">
             <span class="close" onclick="closeEditUser()">&times;</span>
-            <h2>Редагувати користувача</h2>
+            <h2>Edit Visitor</h2>
             <input id="userNameInputEdit" type="text" placeholder="Full Name">
             <input id="userPhoneInputEdit" type="text" placeholder="Phone">
-            <button style="right: 370px;" id="saveUserBtnEdit" onclick="saveEditedUser()">Змінити</button>
-            <button id="deleteUserBtnEdit" onclick="deleteUserFromEdit(this)">Видалити</button>
+            <button style="width: 70px;" id="saveUserBtnEdit" onclick="saveEditedUser()">Save</button>
+            <button style="right: 370px; width: 70px;" id="deleteUserBtnEdit" onclick="deleteUserFromEdit(this)">Delete</button>
+        </div>
+    </div>
+    <!-- case 3 (Картки) -->
+    <div class="card" id="newCard">
+        <div class="card-content">
+            <span class="close" onclick="closeNewCard()">&times;</span>    
+            <h2>Add new Card</h2>     
+            <input id="cardVisitorInput" style="margin: 10px;" type="text" placeholder="Visitor">      
+            <input id="cardBookInput" style="margin: 10px;" type="text" placeholder="Book">       
+            <input id="cardBorrowDateInput" style="margin: 10px;" type="text" placeholder="BorrowDate">       
+            <input id="cardReturnDateInput" style="margin: 10px;" type="text" placeholder="ReturnDate">       
+            <button style="margin: 10px; width: 70px;" id="saveCardBtn" onclick="addNewCard()">Save</button>
+        </div>
+    </div> 
+    <div class="card" id="editCard">
+        <div class="card-content">
+            <span class="close" onclick="closeEditCard()">&times;</span>
+            <h2>Edit Card</h2>
+            <input id="cardVisitorInputEdit" style="margin: 10px;" type="text" placeholder="Visitor">
+            <input id="cardBookInputEdit" style="margin: 10px;" type="text" placeholder="Book">
+            <input id="cardBorrowDateInputEdit" style="margin: 10px;" type="text" placeholder="BorrowDate">
+            <input id="cardReturnDateInputEdit" style="margin: 10px;" type="text" placeholder="ReturnDate">    
+            <button style="margin: 10px; width: 70px;" id="saveCardBtnEdit" onclick="saveEditedCard()">Save</button>
+            <button style="margin: 10px; width: 70px; right: 330px;" id="deleteCardBtnEdit" onclick="deleteCardFromEdit(this)">Delete</button>
         </div>
     </div>
     <script src="main.js"></script>

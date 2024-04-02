@@ -1,5 +1,6 @@
 var books = [];
 var users = [];
+var cards = [];
 function changeContent(option) 
 {
     var contentDiv = document.getElementById('content');
@@ -8,8 +9,8 @@ function changeContent(option)
         case 1:
             contentDiv.innerHTML = `
             <div class="containMain">
-            <h1 style="position: absolute; left: 265px; top: 40px;">Всі книги:</h1>
-            <button style="top: 60px;" onclick="openNewBook()">Нова книга</button>
+            <h1 style="position: absolute; left: 265px; top: 40px;">All Books:</h1>
+            <button style="top: 60px; width: 150px;" onclick="openNewBook()">New Book</button>
         </div>
         <hr style="right: 10px;">
         <div class="container">
@@ -48,8 +49,8 @@ function changeContent(option)
         case 2:
             contentDiv.innerHTML = `
             <div class="containMain">
-            <h1 style="position: absolute; left: 265px; top: 40px;">Всі користувачі:</h1>
-            <button style="top: 60px;" onclick="openNewUser()">Новий користувач</button>
+            <h1 style="position: absolute; left: 265px; top: 40px;">All Visitors:</h1>
+            <button style="top: 60px; width: 150px;" onclick="openNewUser()">New Visitor</button>
         </div>
         <hr style="right: 10px;">
         <div class="container">
@@ -59,7 +60,7 @@ function changeContent(option)
                 <option value="name">Name</option>
                 <option value="phone">Phone</option>
             </select>
-            <button style="position: absolute; left: 440px; height: 30px; bottom: 765px; width: 65px; font-size: 18px;" id="userSortBtn" onclick="sortUserTable()">Sort</button>
+            <button style="position: absolute; left: 435px; height: 30px; bottom: 765px; width: 65px; font-size: 18px;" id="userSortBtn" onclick="sortUserTable()">Sort</button>
             <p style="position: absolute; left: 1520px; bottom: 745px; font-size: 22px;">Search:</p>
             <input type="text" id="searchInputUser" placeholder="Search">
             <button style="position: absolute; left: 1820px; height: 35px; bottom: 760px; width: 80px; font-size: 18px;" id="userSearchBtn">Search</button>
@@ -79,7 +80,40 @@ function changeContent(option)
             setTimeout(fillBookTable, 0);
             break;
         case 3:
-            contentDiv.innerHTML = "<h1>CONTENT HERE CARDS 3</h1><p>CONTENT HERE FOR 3.</p>";
+            contentDiv.innerHTML = `<div class="containMain">
+            <h1 style="position: absolute; left: 265px; top: 40px;">All Cards:</h1>
+            <button style="top: 60px; width: 150px;" onclick="openNewCard()">New Card</button>
+        </div>
+        <hr style="right: 10px;">
+        <div class="container">
+            <p style="position: absolute; bottom: 745px; left: 265px; font-size: 22px;">Sort by:</p>
+            <select id="cardCombo">
+                <option value="id">ID</option>
+                <option value="visitor">Visitor</option>
+                <option value="book">Book</option>
+                <option value="borrowDate">Borrow Date</option>
+                <option value="returnDate">Return Date</option>
+            </select>
+            <button style="position: absolute; left: 485px; height: 30px; bottom: 765px; width: 65px; font-size: 18px;" id="sortCardBtn" onclick="sortCardTable()">Sort</button>
+            <p style="position: absolute; left: 1520px; bottom: 745px; font-size: 22px;">Search:</p>
+            <input type="text" id="searchInputCard" placeholder="Search">
+            <button style="position: absolute; left: 1820px; height: 35px; bottom: 760px; width: 80px; font-size: 18px;" id="searchBtnCard">Search</button>
+            <table id="cardTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Author</th>
+                        <th>Year</th>
+                        <th>Publisher</th>
+                        <th>Pages</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>`;
             break;
         case 4:
             contentDiv.innerHTML = "<h1>CONTENT HERE STATS 4</h1><p>CONTENT HERE FOR 4.</p>";
@@ -435,3 +469,143 @@ function fillUserTable(usersToDisplay = users)
 }
 document.getElementById('searchBtnBook').addEventListener('click', searchBooks);
 document.getElementById('userSearchBtn').addEventListener('click', searchUsers);
+function openNewCard() 
+{
+    var modal = document.getElementById('newCard');
+    modal.style.display = 'block';
+}
+function closeNewCard() 
+{
+    var modal = document.getElementById('newCard');
+    modal.style.display = 'none';
+}
+function openEditCard(cardId) 
+{
+    var card = cards.find(function(item) 
+    {
+        return item.id === cardId;
+    });
+    document.getElementById('cardVisitorInputEdit').value = card.visitor;
+    document.getElementById('cardBookInputEdit').value = card.book;
+    document.getElementById('cardBorrowDateInputEdit').value = card.borrowDate;
+    document.getElementById('cardReturnDateInputEdit').value = card.returnDate;
+    document.getElementById('saveCardBtnEdit').dataset.cardId = cardId;
+    document.getElementById('deleteCardBtnEdit').dataset.cardId = cardId;
+    var modal = document.getElementById('editCard');
+    modal.style.display = 'block';
+}
+function closeEditCard() 
+{
+    var modal = document.getElementById('editCard');
+    modal.style.display = 'none';
+}
+function addNewCard() 
+{
+    const visitor = document.getElementById('cardVisitorInput').value;
+    const book = document.getElementById('cardBookInput').value;
+    const borrowDate = document.getElementById('cardBorrowDateInput').value;
+    const returnDate = document.getElementById('cardReturnDateInput').value;
+    const newCard = 
+    {
+        id: cards.length + 1,
+        visitor,
+        book,
+        borrowDate,
+        returnDate
+    };
+    cards.push(newCard);
+    fillCardTable();
+    saveCardsToLocalStorage();
+    closeNewCard();
+    document.getElementById('cardVisitorInput').value = '';
+    document.getElementById('cardBookInput').value = '';
+    document.getElementById('cardBorrowDateInput').value = '';
+    document.getElementById('cardReturnDateInput').value = '';
+}
+function saveEditedCard() 
+{
+    var cardId = document.getElementById('saveCardBtnEdit').dataset.cardId;
+    var visitor = document.getElementById('cardVisitorInputEdit').value;
+    var book = document.getElementById('cardBookInputEdit').value;
+    var borrowDate = document.getElementById('cardBorrowDateInputEdit').value;
+    var returnDate = document.getElementById('cardReturnDateInputEdit').value;
+    cards.forEach(function(card) 
+    {
+        if (card.id === parseInt(cardId)) 
+        {
+            card.visitor = visitor;
+            card.book = book;
+            card.borrowDate = borrowDate;
+            card.returnDate = returnDate;
+        }
+    });
+    fillCardTable();
+    saveCardsToLocalStorage();
+    closeEditCard();
+}
+function deleteCardFromEdit(button) 
+{
+    var cardId = button.dataset.cardId;
+    deleteCard(parseInt(cardId));
+    closeEditCard();
+}
+function deleteCard(cardId) 
+{
+    cards = cards.filter(function(item) 
+    {
+        return item.id !== cardId;
+    });
+    fillCardTable();
+    saveCardsToLocalStorage();
+}
+function editCard(cardId) 
+{
+    openEditCard(cardId);
+}
+function saveCardsToLocalStorage() 
+{
+    localStorage.setItem('cards', JSON.stringify(cards));
+}
+function loadCardsFromLocalStorage() 
+{
+    var storedCards = localStorage.getItem('cards');
+    if (storedCards) 
+    {
+        cards = JSON.parse(storedCards);
+    }
+}
+function fillCardTable() 
+{
+    const tableBody = document.querySelector('#cardTable tbody');
+    tableBody.innerHTML = '';
+    cards.forEach(card => 
+    {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${card.id}</td>
+            <td>${card.visitor}</td>
+            <td>${card.book}</td>
+            <td>${card.borrowDate}</td>
+            <td>${card.returnDate}</td>
+            <td><button onclick="editCard(${card.id})">Edit</button></td>`;
+        tableBody.appendChild(row);
+    });
+}
+function sortCardTable() 
+{
+    const sortBy = document.getElementById('cardCombo').value;
+    cards.sort((a, b) => 
+    {
+        if (a[sortBy] < b[sortBy]) return -1;
+        if (a[sortBy] > b[sortBy]) return 1;
+        return 0;
+    });
+    fillCardTable();
+}
+function searchCards() 
+{
+    const searchTerm = document.getElementById('searchInputCard').value.toLowerCase();
+    const filteredCards = cards.filter(card => Object.values(card).some(value => String(value).toLowerCase().includes(searchTerm)));
+    fillCardTable(filteredCards);
+}
+document.getElementById('searchBtnCard').addEventListener('click', searchCards);
