@@ -53,68 +53,6 @@ button:hover
 {
     background-color: #555;
 }
-/* case 1 */
-.book 
-{
-    display: none; 
-    position: absolute; 
-    z-index: 9999; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 101%; 
-    background-color: rgba(0,0,0,0.4); 
-    overflow: hidden;
-}
-.book button
-{
-    height: 35px;
-    position: absolute;
-}
-.book-content 
-{
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%;
-    position: relative;
-    overflow: hidden;
-}
-/* case 1 table */
-table 
-{
-    position: relative;
-    top: 200px;
-    width: auto;
-    left: 80px;
-    margin: 0 auto;
-    border-collapse: collapse;
-    border: 2px solid #2c2c2c;
-    font-size: 28px;
-    background-color: white;
-    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.5);
-}
-th, td 
-{
-    border: 2px solid #2c2c2c;
-    padding: 10px;
-    text-align: left;
-    width: auto;
-    background-color: white;
-}
-th 
-{
-    background-color: #555;
-    color: white;
-    width: auto;
-}
-tbody tr:nth-child(even) 
-{
-    background-color: white;
-    width: auto;
-}
-/* case 2 */
 .content 
 {
     width: 100px;
@@ -180,7 +118,70 @@ tbody tr:nth-child(even)
     width: 1640px;
     top: 105px;
 }
-/* case 2 button AddUser */
+table 
+{
+    position: relative;
+    top: 200px;
+    width: 500px;
+    left: 80px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    border: 2px solid #2c2c2c;
+    font-size: 28px;
+    background-color: white;
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.5);
+}
+th, td 
+{
+    width: 500px;
+    border: 2px solid #2c2c2c;
+    padding: 10px;
+    text-align: left;
+    width: auto;
+    background-color: white;
+}
+th 
+{
+    width: 500px;
+    background-color: #555;
+    color: white;
+    width: auto;
+}
+tbody tr:nth-child(even) 
+{
+    width: 500px;
+    background-color: white;
+    width: auto;
+}
+/* case 1 */
+.book 
+{
+    display: none; 
+    position: absolute; 
+    z-index: 9999; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 101%; 
+    background-color: rgba(0,0,0,0.4); 
+    overflow: hidden;
+}
+.book button
+{
+    height: 35px;
+    position: absolute;
+}
+.book-content 
+{
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    position: relative;
+    overflow: hidden;
+}
+/* case 2 btn AddUser */
 .user 
 {
     display: none; 
@@ -223,7 +224,7 @@ tbody tr:nth-child(even)
     cursor: pointer;
     overflow: hidden;
 }
-/* case 3 button AddCard */
+/* case 3 btn AddCard */
 .card 
 {
     display: none; 
@@ -266,3 +267,4 @@ tbody tr:nth-child(even)
     cursor: pointer;
     overflow: hidden;
 }
+/* case 4 btn Stats */

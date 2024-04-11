@@ -102,12 +102,10 @@ function changeContent(option)
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Author</th>
-                        <th>Year</th>
-                        <th>Publisher</th>
-                        <th>Pages</th>
-                        <th>Count</th>
+                        <th>Visitor</th>
+                        <th>Book</th>
+                        <th>Borrow Date</th>
+                        <th>Return Date</th>                        
                     </tr>
                 </thead>
                 <tbody>
