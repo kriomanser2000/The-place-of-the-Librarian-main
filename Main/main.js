@@ -123,7 +123,7 @@ function changeContent(option)
 function openNewUser() 
 {
     var modal = document.getElementById('newUser');
-    modal.style.display = 'block';
+    if (modal) modal.style.display = 'block';
 }
 function closeNewUser() 
 {
@@ -157,76 +157,12 @@ function loadUsersFromLocalStorage()
     if (storedUsers) 
     {
         users = JSON.parse(storedUsers);
+    } 
+    else 
+    {
+        users = [];
     }
 }
-function openEditUser(userId) 
-{
-    var user = users.find(function(item) 
-    {
-        return item.id === userId;
-    });
-    document.getElementById('userNameInputEdit').value = user.name;
-    document.getElementById('userPhoneInputEdit').value = user.phone;
-    document.getElementById('saveUserBtnEdit').dataset.userId = userId;
-    document.getElementById('deleteUserBtnEdit').dataset.userId = userId;
-    var modal = document.getElementById('editUser');
-    modal.style.display = 'block';
-}
-function closeEditUser() 
-{
-    var modal = document.getElementById('editUser');
-    modal.style.display = 'none';
-}
-function saveEditedUser() 
-{
-    var userId = document.getElementById('saveUserBtnEdit').dataset.userId;
-    var name = document.getElementById('userNameInputEdit').value;
-    var phone = document.getElementById('userPhoneInputEdit').value;
-    users.forEach(function(user) 
-    {
-        if (user.id === parseInt(userId)) 
-        {
-            user.name = name;
-            user.phone = phone;
-        }
-    });
-    fillUserTable();
-    saveUsersToLocalStorage();
-    closeEditUser();
-}
-function deleteUserFromEdit(button) 
-{
-    var userId = button.dataset.userId;
-    deleteUser(parseInt(userId));
-    closeEditUser();
-}
-function deleteUser(userId) 
-{
-    users = users.filter(function(item) 
-    {
-        return item.id !== userId;
-    });
-    fillUserTable();
-    saveUsersToLocalStorage();
-}
-function editUser(userId) 
-{
-    openEditUser(userId);
-}
-loadUsersFromLocalStorage();
-document.addEventListener('DOMContentLoaded', function() 
-{
-    loadUsersFromLocalStorage();
-    fillBookTable();
-    fillUserTable();
-});
-loadUsersFromLocalStorage();
-document.addEventListener('DOMContentLoaded', function() 
-{
-    loadUsersFromLocalStorage();
-    fillBookTable();
-    fillUserTable();
-});
 function openNewBook() 
 {
     var modal = document.getElementById('newBook');
@@ -237,73 +173,6 @@ function closeNewBook()
     var modal = document.getElementById('newBook');
     modal.style.display = 'none';
 }
-function editBook(bookId) 
-{
-    var book = books.find(function(item) 
-    {
-        return item.id === bookId;
-    });
-    document.getElementById('bookNameInput').value = book.name;
-    document.getElementById('bookAuthorInput').value = book.author;
-    document.getElementById('bookYearInput').value = book.year;
-    document.getElementById('bookPublisherInput').value = book.publisher;
-    document.getElementById('bookPagesInput').value = book.pages;
-    document.getElementById('bookCountInput').value = book.count;
-    document.getElementById('saveBookBtn').dataset.bookId = bookId;
-    openNewBook();
-}
-function deleteBook(bookId) 
-{
-    books = books.filter(function(item) 
-    {
-        return item.id !== bookId;
-    });
-    fillBookTable();
-    saveBooksToLocalStorage();
-}
-function saveBooksToLocalStorage() 
-{
-    localStorage.setItem('books', JSON.stringify(books));
-}
-function loadBooksFromLocalStorage() 
-{
-    var storedBooks = localStorage.getItem('books');
-    if (storedBooks) 
-    {
-        books = JSON.parse(storedBooks);
-    }
-}
-function saveBook() 
-{
-    var bookId = document.getElementById('saveBookBtn').dataset.bookId;
-    var name = document.getElementById('bookNameInput').value;
-    var author = document.getElementById('bookAuthorInput').value;
-    var year = document.getElementById('bookYearInput').value;
-    var publisher = document.getElementById('bookPublisherInput').value;
-    var pages = document.getElementById('bookPagesInput').value;
-    var count = document.getElementById('bookCountInput').value;
-    books.forEach(function(book) 
-    {
-        if (book.id === parseInt(bookId)) 
-        {
-            book.name = name;
-            book.author = author;
-            book.year = year;
-            book.publisher = publisher;
-            book.pages = pages;
-            book.count = count;
-        }
-    });
-    fillBookTable();
-    saveBooksToLocalStorage();
-    closeNewBook();
-}
-loadBooksFromLocalStorage();
-document.addEventListener('DOMContentLoaded', function() 
-{
-    loadBooksFromLocalStorage();
-    fillBookTable();
-});
 function editBook(bookId) 
 {
     openEditBook(bookId);
@@ -318,13 +187,13 @@ function addNewBook()
     const count = document.getElementById('bookCountInput').value;
     const newBook = 
     {
-      id: books.length + 1,
-      name,
-      author,
-      year,
-      publisher,
-      pages,
-      count
+        id: books.length + 1,
+        name,
+        author,
+        year,
+        publisher,
+        pages,
+        count
     };
     books.push(newBook);
     fillBookTable();
@@ -337,136 +206,22 @@ function addNewBook()
     document.getElementById('bookPagesInput').value = '';
     document.getElementById('bookCountInput').value = '';
 }
-function openEditBook(bookId) 
+function saveBooksToLocalStorage() 
 {
-    var book = books.find(function(item) 
+    localStorage.setItem('books', JSON.stringify(books));
+}
+function loadBooksFromLocalStorage() 
+{
+    var storedBooks = localStorage.getItem('books');
+    if (storedBooks) 
     {
-      return item.id === bookId;
-    });
-    document.getElementById('bookNameInputEdit').value = book.name;
-    document.getElementById('bookAuthorInputEdit').value = book.author;
-    document.getElementById('bookYearInputEdit').value = book.year;
-    document.getElementById('bookPublisherInputEdit').value = book.publisher;
-    document.getElementById('bookPagesInputEdit').value = book.pages;
-    document.getElementById('bookCountInputEdit').value = book.count;
-    document.getElementById('saveBookBtnEdit').dataset.bookId = bookId;
-    document.getElementById('deleteBookBtnEdit').dataset.bookId = bookId;
-    var modal = document.getElementById('editBook');
-    modal.style.display = 'block';
-}
-function deleteBookFromEdit(button) 
-{
-    var bookId = button.dataset.bookId;
-    deleteBook(parseInt(bookId));
-    closeEditBook();
-}
-function saveEditedBook()
-{
-    var bookId = document.getElementById('saveBookBtnEdit').dataset.bookId;
-    var name = document.getElementById('bookNameInputEdit').value;
-    var author = document.getElementById('bookAuthorInputEdit').value;
-    var year = document.getElementById('bookYearInputEdit').value;
-    var publisher = document.getElementById('bookPublisherInputEdit').value;
-    var pages = document.getElementById('bookPagesInputEdit').value;
-    var count = document.getElementById('bookCountInputEdit').value;
-    books.forEach(function(book) 
+        books = JSON.parse(storedBooks);
+    } 
+    else 
     {
-      if (book.id === parseInt(bookId)) 
-      {
-        book.name = name;
-        book.author = author;
-        book.year = year;
-        book.publisher = publisher;
-        book.pages = pages;
-        book.count = count;
-      }
-    }); 
-    fillBookTable();
-    saveBooksToLocalStorage();
-    closeEditBook();
+        books = [];
+    }
 }
-function closeEditBook() 
-{
-    var modal = document.getElementById('editBook');
-    modal.style.display = 'none';
-}
-function sortBookTable() 
-{
-    const sortBy = document.getElementById('bookCombo').value;
-    books.sort((a, b) => 
-    {
-        if (a[sortBy] < b[sortBy]) return -1;
-        if (a[sortBy] > b[sortBy]) return 1;
-        return 0;
-    });
-    fillBookTable();
-}
-function sortUserTable() 
-{
-    const sortBy = document.getElementById('userCombo').value;
-    users.sort((a, b) => 
-    {
-        if (a[sortBy] < b[sortBy]) return -1;
-        if (a[sortBy] > b[sortBy]) return 1;
-        return 0;
-    });
-    fillUserTable();
-}
-loadUsersFromLocalStorage();
-document.addEventListener('DOMContentLoaded', function() 
-{
-    loadUsersFromLocalStorage();
-    fillBookTable();
-    fillUserTable();
-});
-function searchBooks() 
-{
-    const searchTerm = document.getElementById('searchInputBook').value.toLowerCase();
-    const filteredBooks = books.filter(book => Object.values(book).some(value => String(value).toLowerCase().includes(searchTerm)));
-    fillBookTable(filteredBooks);
-}  
-function searchUsers() 
-{
-    const searchTerm = document.getElementById('searchInputUser').value.toLowerCase();
-    const filteredUsers = users.filter(user => Object.values(user).some(value => String(value).toLowerCase().includes(searchTerm)));
-    fillUserTable(filteredUsers);
-}
-function fillBookTable(booksToDisplay = books) 
-{
-    const tableBody = document.querySelector('#bookTable tbody');
-    tableBody.innerHTML = '';
-    booksToDisplay.forEach(book => 
-    {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${book.id}</td>
-        <td>${book.name}</td>
-        <td>${book.author}</td>
-        <td>${book.year}</td>
-        <td>${book.publisher}</td>
-        <td>${book.pages}</td>
-        <td>${book.count}</td>
-        <td><button onclick="editBook(${book.id})">Edit</button></td>`;
-      tableBody.appendChild(row);
-    });
-}
-function fillUserTable(usersToDisplay = users) 
-{
-    const tableBody = document.querySelector('#userTable tbody');
-    tableBody.innerHTML = '';
-    usersToDisplay.forEach(user => 
-    {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${user.id}</td>
-        <td>${user.name}</td>
-        <td>${user.phone}</td>
-        <td><button onclick="editUser(${user.id})">Edit</button></td>`;
-      tableBody.appendChild(row);
-    });
-}
-document.getElementById('searchBtnBook').addEventListener('click', searchBooks);
-document.getElementById('userSearchBtn').addEventListener('click', searchUsers);
 function openNewCard() 
 {
     var modal = document.getElementById('newCard');
@@ -475,26 +230,6 @@ function openNewCard()
 function closeNewCard() 
 {
     var modal = document.getElementById('newCard');
-    modal.style.display = 'none';
-}
-function openEditCard(cardId) 
-{
-    var card = cards.find(function(item) 
-    {
-        return item.id === cardId;
-    });
-    document.getElementById('cardVisitorInputEdit').value = card.visitor;
-    document.getElementById('cardBookInputEdit').value = card.book;
-    document.getElementById('cardBorrowDateInputEdit').value = card.borrowDate;
-    document.getElementById('cardReturnDateInputEdit').value = card.returnDate;
-    document.getElementById('saveCardBtnEdit').dataset.cardId = cardId;
-    document.getElementById('deleteCardBtnEdit').dataset.cardId = cardId;
-    var modal = document.getElementById('editCard');
-    modal.style.display = 'block';
-}
-function closeEditCard() 
-{
-    var modal = document.getElementById('editCard');
     modal.style.display = 'none';
 }
 function addNewCard() 
@@ -520,90 +255,152 @@ function addNewCard()
     document.getElementById('cardBorrowDateInput').value = '';
     document.getElementById('cardReturnDateInput').value = '';
 }
-function saveEditedCard() 
-{
-    var cardId = document.getElementById('saveCardBtnEdit').dataset.cardId;
-    var visitor = document.getElementById('cardVisitorInputEdit').value;
-    var book = document.getElementById('cardBookInputEdit').value;
-    var borrowDate = document.getElementById('cardBorrowDateInputEdit').value;
-    var returnDate = document.getElementById('cardReturnDateInputEdit').value;
-    cards.forEach(function(card) 
-    {
-        if (card.id === parseInt(cardId)) 
-        {
-            card.visitor = visitor;
-            card.book = book;
-            card.borrowDate = borrowDate;
-            card.returnDate = returnDate;
-        }
-    });
-    fillCardTable();
-    saveCardsToLocalStorage();
-    closeEditCard();
-}
-function deleteCardFromEdit(button) 
-{
-    var cardId = button.dataset.cardId;
-    deleteCard(parseInt(cardId));
-    closeEditCard();
-}
-function deleteCard(cardId) 
-{
-    cards = cards.filter(function(item) 
-    {
-        return item.id !== cardId;
-    });
-    fillCardTable();
-    saveCardsToLocalStorage();
-}
-function editCard(cardId) 
-{
-    openEditCard(cardId);
-}
 function saveCardsToLocalStorage() 
 {
     localStorage.setItem('cards', JSON.stringify(cards));
 }
 function loadCardsFromLocalStorage() 
 {
-    var storedCards = localStorage.getItem('cards');
+    const storedCards = localStorage.getItem('cards');
     if (storedCards) 
     {
         cards = JSON.parse(storedCards);
+    } 
+    else 
+    {
+        cards = [];
     }
 }
-function fillCardTable() 
+function searchBooks() 
+{
+    const searchTerm = document.getElementById('searchInputBook').value.toLowerCase();
+    const filteredBooks = books.filter(book => Object.values(book).some(value => String(value).toLowerCase().includes(searchTerm)));
+    fillBookTable(filteredBooks);
+}
+function searchUsers() 
+{
+    const searchTerm = document.getElementById('searchInputUser').value.toLowerCase();
+    const filteredUsers = users.filter(user => Object.values(user).some(value => String(value).toLowerCase().includes(searchTerm)));
+    fillUserTable(filteredUsers);
+}
+function fillBookTable(booksToDisplay = books)
+{
+    const tableBody = document.querySelector('#bookTable tbody');
+    if (tableBody) 
+    {
+        tableBody.innerHTML = '';
+        booksToDisplay.forEach(book => 
+        {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${book.id}</td>
+                <td>${book.name}</td>
+                <td>${book.author}</td>
+                <td>${book.year}</td>
+                <td>${book.publisher}</td>
+                <td>${book.pages}</td>
+                <td>${book.count}</td>
+                <td><button onclick="editBook(${book.id})">Edit</button></td>`;
+            tableBody.appendChild(row);
+        });
+    } 
+    else 
+    {
+        console.error('Table body for books not found on the page');
+    }
+}
+function fillUserTable(usersToDisplay = users) 
+{
+    const tableBody = document.querySelector('#userTable tbody');
+    if (tableBody) 
+    {
+        tableBody.innerHTML = '';
+        usersToDisplay.forEach(user => 
+        {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${user.id}</td>
+                <td>${user.name}</td>
+                <td>${user.phone}</td>
+                <td><button onclick="editUser(${user.id})">Edit</button></td>`;
+            tableBody.appendChild(row);
+        });
+    } 
+    else 
+    {
+        console.error('Table body for users not found on the page');
+    }
+}
+function fillCardTable(cardsToDisplay = cards) 
 {
     const tableBody = document.querySelector('#cardTable tbody');
-    tableBody.innerHTML = '';
-    cards.forEach(card => 
+    if (tableBody) 
     {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${card.id}</td>
-            <td>${card.visitor}</td>
-            <td>${card.book}</td>
-            <td>${card.borrowDate}</td>
-            <td>${card.returnDate}</td>
-            <td><button onclick="editCard(${card.id})">Edit</button></td>`;
-        tableBody.appendChild(row);
-    });
-}
-function sortCardTable() 
-{
-    const sortBy = document.getElementById('cardCombo').value;
-    cards.sort((a, b) => 
+        tableBody.innerHTML = '';
+        cardsToDisplay.forEach(card => 
+        {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${card.id}</td>
+                <td>${card.visitor}</td>
+                <td>${card.book}</td>
+                <td>${card.borrowDate}</td>
+                <td>${card.returnDate}</td>
+                <td><button onclick="editCard(${card.id})">Edit</button></td>`;
+            tableBody.appendChild(row);
+        });
+    } 
+    else 
     {
-        if (a[sortBy] < b[sortBy]) return -1;
-        if (a[sortBy] > b[sortBy]) return 1;
-        return 0;
-    });
-    fillCardTable();
+        console.error('Table body for cards not found on the page');
+    }
 }
-function searchCards() 
-{
-    const searchTerm = document.getElementById('searchInputCard').value.toLowerCase();
-    const filteredCards = cards.filter(card => Object.values(card).some(value => String(value).toLowerCase().includes(searchTerm)));
-    fillCardTable(filteredCards);
-}
+document.getElementById('searchBtnBook').addEventListener('click', searchBooks);
+document.getElementById('userSearchBtn').addEventListener('click', searchUsers);
 document.getElementById('searchBtnCard').addEventListener('click', searchCards);
+document.addEventListener('DOMContentLoaded', function() 
+{
+    loadUsersFromLocalStorage();
+    loadBooksFromLocalStorage();
+    loadCardsFromLocalStorage();
+    var userTable = document.getElementById('userTable');
+    var bookTable = document.getElementById('bookTable');
+    var cardTable = document.getElementById('cardTable');
+    if (userTable && bookTable && cardTable) 
+    {
+        fillUserTable();
+        fillBookTable();
+        fillCardTable();
+    } 
+    else 
+    {
+        console.error('Tables not found on the page');
+    }
+    var searchBtnBook = document.getElementById('searchBtnBook');
+    var userSearchBtn = document.getElementById('userSearchBtn');
+    var searchBtnCard = document.getElementById('searchBtnCard');
+    if (searchBtnBook) 
+    {
+        searchBtnBook.addEventListener('click', searchBooks);
+    } 
+    else 
+    {
+        console.error('Search button for books not found on the page');
+    }
+    if (userSearchBtn) 
+    {
+        userSearchBtn.addEventListener('click', searchUsers);
+    } 
+    else 
+    {
+        console.error('Search button for users not found on the page');
+    }
+    if (searchBtnCard) 
+    {
+        searchBtnCard.addEventListener('click', searchCards);
+    } 
+    else 
+    {
+        console.error('Search button for cards not found on the page');
+    }
+});

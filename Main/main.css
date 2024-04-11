@@ -122,7 +122,7 @@ table
 {
     position: relative;
     top: 200px;
-    width: 500px;
+    width: 800px;
     left: 80px;
     margin: 0 auto;
     border-collapse: collapse;
@@ -133,7 +133,7 @@ table
 }
 th, td 
 {
-    width: 500px;
+    width: 800px;
     border: 2px solid #2c2c2c;
     padding: 10px;
     text-align: left;
@@ -142,14 +142,14 @@ th, td
 }
 th 
 {
-    width: 500px;
+    width: 800px;
     background-color: #555;
     color: white;
     width: auto;
 }
 tbody tr:nth-child(even) 
 {
-    width: 500px;
+    width: 800px;
     background-color: white;
     width: auto;
 }
